@@ -1,0 +1,39 @@
+//Colisao horizontal
+if (place_meeting(x + velh, y, obj_chao)) {
+	
+    //Pegando o sinal do meu velh
+    
+    var _velh = sign(velh);
+    
+    //Enquanto eu nao estiver colidindo com a parede entaop eu avanco 1 pixel
+    
+    while (!place_meeting(x + _velh, y, obj_chao)) {
+    	x += _velh;
+    }
+    
+    //Isso só roda quando o while deixer de rodar
+    //Zerando a velh
+    velh = 0;
+}
+
+x += round(velh);
+
+//Colisao Vertical 
+
+if (place_meeting(x, y + velv, obj_chao)) {
+    
+	//enquanto nao estiver colidindo no proximo pixel eu avanco 1 pixel
+   
+     var _velv = sign(velv)
+    
+    while (!place_meeting(x, y + _velv, obj_chao)) {
+        //Avanco 1 pixel
+        y += _velv;
+    }
+    
+    velv = 0;
+}
+
+//Movo eixo Y
+
+y += round(velv);
