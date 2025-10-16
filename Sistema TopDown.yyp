@@ -78,6 +78,7 @@
     {"id":{"name":"spr_player_shield_up","path":"sprites/spr_player_shield_up/spr_player_shield_up.yy",},},
     {"id":{"name":"spr_player","path":"sprites/spr_player/spr_player.yy",},},
     {"id":{"name":"spr_sombra","path":"sprites/spr_sombra/spr_sombra.yy",},},
+    {"id":{"name":"spr_teste","path":"sprites/spr_teste/spr_teste.yy",},},
     {"id":{"name":"spr_tiles","path":"sprites/spr_tiles/spr_tiles.yy",},},
     {"id":{"name":"tl_tiles","path":"tilesets/tl_tiles/tl_tiles.yy",},},
   ],
