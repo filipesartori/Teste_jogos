@@ -1,5 +1,3 @@
-draw_text(20, 20, global.pause);
-
 //Escurecendo a tela
 if (global.pause) {
 	desenha_pause();

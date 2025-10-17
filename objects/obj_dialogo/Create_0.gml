@@ -73,7 +73,8 @@ cria_dialogo = function (_dialogo){
         //Desenhando o retrato
         draw_sprite_ext(_retrato, 0, _margem, _ret_y, _ret_escala, _ret_escala, 0, c_white, 1);
         
-        draw_text_ext(_margem*2 + _ret_larg, _yy + _margem, _txt_atual, _margem, _gui_w - _margem*2 - _ret_larg);
+        draw_text_ext_transformed(_margem*1.2 + _ret_larg, (_yy + _margem) / 1.18, _txt_atual, _margem, (_gui_w - _margem*2 - _ret_larg) * 2.5, .4, .4, 0);
+        //draw_text_ext(_margem*2 + _ret_larg, _yy + _margem, _txt_atual, _margem, _gui_w - _margem*2 - _ret_larg);
         
         draw_set_font(-1);
         }
