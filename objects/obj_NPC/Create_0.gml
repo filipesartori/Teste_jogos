@@ -30,12 +30,6 @@ dialogo_area = function (){
                 }	
             }
         }
-        //Se eu apertar esc eu saio do dialogo
-        if (keyboard_check_pressed(vk_escape)) {
-        	with (_player) {
-            	estado = estado_parado;
-            }
-        }
         
     }
 }

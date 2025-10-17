@@ -1,4 +1,6 @@
-
+if (global.pause){
+    exit;
+}
 
 //Controlando os estados do inimigo
 muda_estado();

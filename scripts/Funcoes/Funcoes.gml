@@ -7,4 +7,7 @@ function ajusta_depth(){
     depth = -y;
 }
 
+
+//variaveis globais
 global.debug = false;
+global.pause = false;
