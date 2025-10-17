@@ -20,6 +20,7 @@ rool   = false;
 somb_scale = .6;
 somb_alpha = .2;
 
+npc_dialogo = noone;
 
 //Imagem atual da animacao
 image_ind = 0;
@@ -268,12 +269,56 @@ estado_rolando = function (){
     }
 }
 
+estado_indo_dialogo = function (){
+    velh = 0;
+    velv = 0;
+    
+    ajusta_sprite(1);
+    
+    //Checando se estou na direita ou esquerda
+    //Me movendo na horizontal se eu nao estou na posicao correta
+    if (npc_dialogo) {
+        var _x = npc_dialogo.x
+        var _y = npc_dialogo.y + npc_dialogo.margem;
+        if (bbox_top != _y) {
+        	//Ajustando velv
+            velv = sign(_y - bbox_top);
+            
+            //Ajustando a face
+            face = velv < 0 ? 1 : 3;
+            
+            y = round(y);
+        } else if (x != _x){
+            face = 0;
+            velh = sign(_x - x);
+            xscale = velh;
+            x = round(x);
+        } else {
+        	estado = estado_dialogo;
+            
+        }
+    }
+}
+
 estado_dialogo = function (){
     estado_txt = "Dialogo";
     velh = 0;
     velv = 0;
     face = 1;
     ajusta_sprite(0);
+    
+    //Criando o dialogo
+    //Checando se ele ainda n existe
+    if (!instance_exists(obj_dialogo)) {
+    	var _obj_dialogo = instance_create_depth(0, 0, 0, obj_dialogo);
+        _obj_dialogo.player = id;
+        
+        //Passando o dialogo do NPC para o obj dialogo
+        with (npc_dialogo) {
+                        //Dialogo do objeto dialogo   dialogo do NPC
+        	_obj_dialogo.dialogo                    = dialogo;                   
+        }
+    }
 }
 
 estado = estado_parado;

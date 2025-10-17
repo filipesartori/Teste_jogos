@@ -1,0 +1,1 @@
+cria_dialogo(dialogo);
