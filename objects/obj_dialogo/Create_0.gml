@@ -21,7 +21,7 @@ cria_dialogo = function (_dialogo){
     static _spr_w  = sprite_get_width(spr_caixa_dialogo);
     static _spr_h  = sprite_get_height(spr_caixa_dialogo);
     
-    draw_set_font(fnt_dialog_vt);
+    draw_set_font(fnt_Roboto);
     
     //Convertando a sprite da caixa de pixels para porcentagem
     var _escala_x = (_gui_w / _spr_w) * escala_caixa;

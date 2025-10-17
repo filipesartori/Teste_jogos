@@ -11,3 +11,4 @@ function ajusta_depth(){
 //variaveis globais
 global.debug = false;
 global.pause = false;
+global.inventario = ds_grid_create(4, 4);

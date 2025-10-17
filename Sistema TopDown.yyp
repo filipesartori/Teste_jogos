@@ -47,6 +47,7 @@
   "resources":[
     {"id":{"name":"fnt_dialog_jersey","path":"fonts/fnt_dialog_jersey/fnt_dialog_jersey.yy",},},
     {"id":{"name":"fnt_dialog_vt","path":"fonts/fnt_dialog_vt/fnt_dialog_vt.yy",},},
+    {"id":{"name":"fnt_Roboto","path":"fonts/fnt_Roboto/fnt_Roboto.yy",},},
     {"id":{"name":"Colisao Pixel Perfect","path":"notes/Colisao Pixel Perfect/Colisao Pixel Perfect.yy",},},
     {"id":{"name":"Colisao Sub Pixel","path":"notes/Colisao Sub Pixel/Colisao Sub Pixel.yy",},},
     {"id":{"name":"obj_camera","path":"objects/obj_camera/obj_camera.yy",},},
@@ -66,6 +67,8 @@
     {"id":{"name":"spr_cogumelo_right","path":"sprites/spr_cogumelo_right/spr_cogumelo_right.yy",},},
     {"id":{"name":"spr_cogumelo_up","path":"sprites/spr_cogumelo_up/spr_cogumelo_up.yy",},},
     {"id":{"name":"spr_inimigo","path":"sprites/spr_inimigo/spr_inimigo.yy",},},
+    {"id":{"name":"spr_inventario_caixa","path":"sprites/spr_inventario_caixa/spr_inventario_caixa.yy",},},
+    {"id":{"name":"spr_inventario_fundo","path":"sprites/spr_inventario_fundo/spr_inventario_fundo.yy",},},
     {"id":{"name":"spr_npc_char","path":"sprites/spr_npc_char/spr_npc_char.yy",},},
     {"id":{"name":"spr_player_attack_down","path":"sprites/spr_player_attack_down/spr_player_attack_down.yy",},},
     {"id":{"name":"spr_player_attack_right","path":"sprites/spr_player_attack_right/spr_player_attack_right.yy",},},
