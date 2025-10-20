@@ -138,7 +138,7 @@ estado_parado = function (){
     }
     
     //Indo para o estado de ataque
-    if (attack) {
+    if (attack && global.arma_player) {
     	estado = estado_ataque;
     }
     if (shield) {
@@ -176,7 +176,7 @@ estado_movendo = function (){
         somb_scale = .6;
     }
     
-    if (attack) {
+    if (attack && global.arma_player) {
     	estado = estado_ataque;
         somb_scale = .6;
     }
@@ -191,6 +191,8 @@ estado_movendo = function (){
 }
 
 estado_ataque = function () {
+    static _meu_dano = noone;
+    
     estado_txt = "ataque";
     
     ajusta_sprite(2);
@@ -198,9 +200,25 @@ estado_ataque = function () {
     velh = 0;
     velv = 0;
     
+    //preciso criar o dano
+    //Só crio o dano se eu n tenho um dano
+    if (!_meu_dano) {
+    	var _dano_x = x + lengthdir_x(sprite_width, face * 90);
+        var _dano_y = y + lengthdir_y(sprite_height, face * 90);
+        //A face esta olhando para cima se sim o valor de add é metade da sprite, caso contrario o valor de add é 0
+        var _add    = face == 1 ? sprite_height / 2 : 0;
+        
+        _meu_dano = instance_create_depth(_dano_x, _dano_y - (sprite_height/2) + _add, depth, obj_dano);
+    }
+    
+    
     //Saindo do estado de ataque
     if (image_ind + image_spd >= image_num) {
     	estado = estado_parado;
+        
+        //Resetando o meu dano
+        instance_destroy(_meu_dano);
+        _meu_dano = noone;
     }
 }
 

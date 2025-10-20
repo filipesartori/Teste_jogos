@@ -1,54 +1,13 @@
 // Inherit the parent event
 event_inherited();
 
-max_vel = 2;
+vida_max = 2;
+vida_atual = vida_max;
 
-estado = "Parado";
-alvo = false;
-campo_visao = 100;
-destino_x = 0;
-destino_y = 0;
-tempo_persegue = game_get_speed(gamespeed_fps) * 2;
-t_persegue = tempo_persegue;
-tempo_ataque = game_get_speed(gamespeed_fps) * .2;
-t_ataque = tempo_ataque;
-somb_alpha = .3;
 
-tempo_estado = game_get_speed(gamespeed_fps) * 1;
-tempo = tempo_estado;
+//Definindo as sprites
+sprites = [spr_cogumelo_right, spr_cogumelo_up, spr_cogumelo_right, spr_cogumelo_down];
 
-image_speed = 8 / game_get_speed(gamespeed_fps);
-
-controla_sprite = function (){
-    var _dir = point_direction(0, 0, velh, velv);
-    
-    
-    //Se estou indo apra a direita eu olho para a direita
-    //Direita
-    
-    //Pegando para qual direcao ele ta olhando, Sendo q o div retorna uma divao apenas dos inteiros
-    var _face = _dir div 90;
-    
-    switch(_face){
-        case 0:
-            sprite_index = spr_cogumelo_right; 
-            image_xscale = 1;   
-        break;
-        case 1:
-            sprite_index = spr_cogumelo_up;    
-        break;
-        case 2:
-            sprite_index = spr_cogumelo_right; 
-            image_xscale = -1;     
-        break
-        case 3:
-            sprite_index = spr_cogumelo_down;    
-        break
-    }
-    //Cima
-    //Esquerda
-    //Baixo
-}
 
 muda_estado = function () {
      //checando se eu estou com mouse em cima do meu inimigo
@@ -234,6 +193,49 @@ controla_estado = function () {
                 t_ataque = tempo_ataque;
             }
         
+        break;
+        
+        case "dano":
+            timer_dano--;
+            timer_pisca--;
+            velh = 0
+            velv = 0
+        
+            //Checando se eu devo aplica o dano
+            if (dano > 0) {
+                timer_pisca = tempo_pisca;
+            	vida_atual -= dano;
+                dano = 0;
+            }
+            //Sendo empurrado
+            velh = lengthdir_x(1, dano_dir);
+            velv = lengthdir_y(1, dano_dir);
+        
+            if (timer_dano <= 0) {
+                timer_dano = tempo_dano;
+                if (vida_atual <= 0) {
+                	estado = "morte"
+                }else {
+                	estado = "Parado"
+                }
+            }
+        break;
+        
+        case "morte":
+            velh = 0;
+            velv = 0;
+            image_speed = 0;    
+        
+            if (image_alpha > 0) {
+            	image_alpha -= .07;
+            }else {
+            	instance_destroy();
+            }
+                
+        case "inativo":
+            velh = 0;
+            velv = 0;
+            image_speed = 8 / game_get_speed(gamespeed_fps);
         
         break;
     }

@@ -1,4 +1,3 @@
-
 //desenhar a minha sprite
 draw_sprite_ext(sprite, image_ind, x, y, xscale, image_yscale, image_angle, image_blend, image_alpha);
 
@@ -10,3 +9,5 @@ if (global.debug){
     draw_set_valign(-1);
     draw_set_halign(-1);
 }
+
+

@@ -1,21 +1,20 @@
 {
   "$GMObject":"",
-  "%Name":"obj_inimigo",
+  "%Name":"obj_inimigo_pai",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"obj_inimigo",
+  "name":"obj_inimigo_pai",
   "overriddenProperties":[],
   "parent":{
     "name":"Objects",
     "path":"folders/Objects.yy",
   },
   "parentObjectId":{
-    "name":"obj_inimigo_pai",
-    "path":"objects/obj_inimigo_pai/obj_inimigo_pai.yy",
+    "name":"obj_entidade",
+    "path":"objects/obj_entidade/obj_entidade.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,
@@ -30,19 +29,11 @@
   "physicsShape":1,
   "physicsShapePoints":[],
   "physicsStartAwake":true,
-  "properties":[
-    {"$GMObjectProperty":"v1","%Name":"variable_name","filters":[],"listItems":[],"multiselect":false,"name":"variable_name","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"0","varType":0,},
-  ],
+  "properties":[],
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":{
-    "name":"spr_cogumelo_down",
-    "path":"sprites/spr_cogumelo_down/spr_cogumelo_down.yy",
-  },
-  "spriteMaskId":{
-    "name":"spr_cogumelo_down",
-    "path":"sprites/spr_cogumelo_down/spr_cogumelo_down.yy",
-  },
+  "spriteId":null,
+  "spriteMaskId":null,
   "visible":true,
 }

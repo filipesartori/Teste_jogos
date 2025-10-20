@@ -1,7 +1,3 @@
-if (keyboard_check_released(vk_escape)) {
-	global.pause = !global.pause;
-}
-
 //Se o jogo esta pausado, pausa todas as entidades
 if (global.pause) {
     if (instance_exists(obj_entidade)) {
@@ -11,5 +7,8 @@ if (global.pause) {
             image_speed = 0;
         }
     }
-	
+}
+
+if (keyboard_check_released(vk_escape)) {
+	global.pause = !global.pause;
 }
