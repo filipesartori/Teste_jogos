@@ -12,12 +12,17 @@ function cria_arma(_nome, _desc, _spr, _dano, _vel) constructor
     //Criando o ID das armas
     static qtd_armas = 0;
     
-    arma_id = ++qtd_armas;
+    arma_id = qtd_armas++;
     nome    = _nome;
     desc    = _desc;
     spr     = _spr;
     dano    = _dano;
     vel     = _vel;
+    
+    usa_item = function (){
+        //equipando minha arma
+        global.arma_player = global.armas[| arma_id];
+    }
 }
 
 enum armas 
@@ -29,6 +34,7 @@ enum armas
 
 //Criando a minha lista de armas
 global.armas = ds_list_create();
+global.arma_player = noone;
 
 //Criando as armas
 var _a = new cria_arma("Espadonha", "Uma espada feita de maconha", spr_espada, 3, 1);

@@ -7,3 +7,8 @@ if (global.pause) {
         layer_destroy("efeito_pause");
     }
 }
+
+//Desenhando op nome do equipamento atual
+if (global.arma_player) {
+	draw_text(20, 40, global.arma_player.nome);
+}

@@ -37,9 +37,19 @@ desenha_pause = function (){
     
 }
 
+troca_item = function (_x, _y, _item){
+    //Pegando o item na posicao do inventario
+    var _item_guardado = global.inventario[# _x, _y];
+    //Colocando o item que ele me deu na poisao do inverntario
+    global.inventario[# _x, _y] = _item;
+    
+    return _item_guardado;
+}
+
 desenha_inventario = function (){
     //variaveis para saber a selecao X e Y
     static _sel_x = 0, _sel_y = 0;
+    static _item_mouse = 0;
     
     //pegando as dimesoes da minha GUI
     var _gui_w            = display_get_gui_width();
@@ -72,15 +82,36 @@ desenha_inventario = function (){
     //Desenhando o fundo do inventario
     draw_sprite_stretched(spr_inventario_fundo, 0, _inv_x, _inv_y, _inv_w, _inv_h);
     
-    //desenhando quadrado na parte do grid
-    //draw_rectangle(_item_x , _item_y, _item_x + _item_w, _item_y + _item_h, true);
-    
-    //Desenhnado retangulo das infos
-    //draw_rectangle(_desc_x,  _desc_y, _desc_x + _desc_w, _desc_y + _desc_h, true);
-    
     var _mouse_na_area = _mouse_x == clamp(_mouse_x, _item_x, _item_x + _item_w) &&
                          _mouse_y == clamp(_mouse_y, _item_y, _item_y + _item_h);
     
+    //Usando o item quando eu apertar o botao direito do mouse se eu estiver na area correta
+    if (_mouse_na_area) {
+    	//usando item com o botao direito do mouse
+        var _item_sel = global.inventario[# _sel_x, _sel_y]
+        if (mouse_check_button_released(mb_right)) {
+        	//Se existe um item nessa posicao
+            if (_item_sel) {
+            	_item_sel.usa_item();
+            }
+        }
+        if (mouse_check_button_released(mb_left)) {
+        	//Se eu cloquei com o botao esqeurdo eu qeuro poder mover o item
+            _item_mouse = troca_item(_sel_x, _sel_y, _item_mouse);
+            
+        }
+    }
+    
+    var _equip_x = _inv_x + _inv_w / 2 - _grid_w/2;
+    var _equip_y = _inv_y - _grid_h;
+    //Desnehando a caixa do item equipado
+    draw_sprite_stretched(spr_inventario_fundo, 0, _equip_x, _equip_y, _grid_w, _grid_h);
+    //Desenhando o item na caixa de equipado
+    if (global.arma_player) {
+        var _equip_w = _grid_w * .5
+        var _equip_h = _grid_h * .5
+    	draw_sprite_stretched(global.arma_player.spr, 0, _equip_x + _equip_w/2, _equip_y + _equip_h/2, _equip_w, _equip_h);
+    }
     //Desenhando os itens nos espcaos dos itens
     for(var i = 0; i < _lins; i++){
         for (var j = 0; j < _cols; j++) {
@@ -150,6 +181,11 @@ desenha_inventario = function (){
                 draw_set_halign(-1);
                 draw_set_font(-1);
             }
+        }
+        
+         //Desenhando o item no mouse
+        if (_item_mouse) {
+        	draw_sprite_stretched(_item_mouse.spr, 0, _mouse_x, _mouse_y, _grid_w /2, _grid_h /2)
         }
     }
     
