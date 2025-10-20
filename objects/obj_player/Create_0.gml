@@ -1,6 +1,8 @@
 // Inherit the parent event
 event_inherited();
 
+#region Variaveis
+
 max_vel  = 3;
 meu_acel = .1
 acel     = meu_acel;
@@ -12,6 +14,8 @@ estado_txt = "parado"
 face   = 0;
 sprite = sprite_index;
 xscale = 1;
+
+seq_especial = noone;
 
 attack = false;
 shield = false;
@@ -57,6 +61,7 @@ keyboard_set_map(ord("L"), ord("Z"));
 keyboard_set_map(ord("K"), ord("X"));
 keyboard_set_map(vk_enter, vk_space);
 
+#endregion
 
 ajusta_sprite = function (_indice_vetor){
     //Checando se a imagem que estou usando é oque eud everia estar usando
@@ -86,6 +91,10 @@ controla_player = function (){
     attack      = keyboard_check_pressed(ord("C"));
     roll        = keyboard_check_pressed(ord("X"));
     shield      = keyboard_check(ord("Z"));
+    
+    if (keyboard_check_pressed(vk_control) && global.arma_player) {
+    	estado = estado_ataque_especial;
+    }
     
     //Ajustando a face
     if (_up) face    = 1;
@@ -220,6 +229,42 @@ estado_ataque = function () {
         instance_destroy(_meu_dano);
         _meu_dano = noone;
     }
+}
+
+estado_ataque_especial = function (){
+    image_alpha = 0;
+    velh = 0;
+    velv = 0;
+    //controla_player();
+    estado_txt = "Ataque Especial"
+    //Preciso ver se tenho uma espada
+    if (global.arma_player) {
+    	if (!seq_especial) {
+        	//Usando o atk especial dessa espada
+            seq_especial = global.arma_player.esp();
+        }
+    }else {
+    	estado = estado_parado;
+    }
+    
+    //checando se a animacao acabou
+    if (seq_especial) {
+    	if (layer_sequence_is_finished(seq_especial)) {
+        	estado = estado_parado;
+            image_alpha = 1;
+            layer_sequence_destroy(seq_especial);
+            seq_especial = noone;
+            
+            //Se a layer especial existe eu destruo
+            if (layer_exists("ataque_especial")) {
+            	layer_destroy("ataque_especial");
+            }
+        }
+    }else {
+    	estado = estado_parado;
+        image_alpha = 1;
+    }
+    
 }
 
 estado_defesa = function (){
