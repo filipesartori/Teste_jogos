@@ -23,6 +23,29 @@ function cria_arma(_nome, _desc, _spr, _dano, _vel) constructor
         //equipando minha arma
         global.arma_player = global.armas[| arma_id];
     }
+    
+    pega_item = function (){
+        var _cols = ds_grid_width(global.inventario);
+        var _lins = ds_grid_height(global.inventario);
+        //Checar se tem espaco vazio no inventario
+        for (var i = 0; i < _lins; i++) {
+        	for (var j = 0; j < _cols; j++) {
+            	//Se o slot atual ta vazio eu entro nele
+                var _atual = global.inventario[# j, i]
+                if (!_atual) {
+                	//Eu vou apra estes slot, pois ele vai estar vazio
+                    global.inventario[# j, i] = global.armas[| arma_id];
+                    
+                    //Consegui me equipar eu aviso que deu certo
+                    return true;
+                }
+            }
+        }
+        
+        //Terminou o laco e nao encontrou um slot retorno falso
+        return false;
+        
+    }
 }
 
 enum armas 

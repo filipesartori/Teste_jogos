@@ -46,6 +46,18 @@ troca_item = function (_x, _y, _item){
     return _item_guardado;
 }
 
+conta_armas = function (_arma){
+    var _qtd = 0
+    for (var i = 0; i < ds_grid_height(global.inventario); i++) {
+    	for (var j = 0; j < ds_grid_width(global.inventario); j++) {
+        	if (global.inventario[# j, i] == _arma) {
+            	_qtd++;
+            }
+        }
+    }
+    return _qtd;
+}
+
 desenha_inventario = function (){
     //variaveis para saber a selecao X e Y
     static _sel_x = 0, _sel_y = 0;
@@ -99,6 +111,21 @@ desenha_inventario = function (){
         	//Se eu cloquei com o botao esqeurdo eu qeuro poder mover o item
             _item_mouse = troca_item(_sel_x, _sel_y, _item_mouse);
             
+        }
+    } else { // Mouse nao esta na area do inventario
+    	//Se eu cloquei fora dele e estou com item eu jogo fora o item
+        if (_item_mouse && mouse_check_button_released(mb_left)) {
+            //Checando quantas armas igauis eu tenho
+            var _qtd_armas = conta_armas(global.arma_player);
+            
+            if (_item_mouse != global.arma_player or _qtd_armas > 0) {
+            	var _novo_item = instance_create_layer(mouse_x, mouse_y, "Instances", obj_itens);
+                //Avisando ao item, qual item ele é
+                _novo_item.item = _item_mouse;
+                //Apagando do inventario
+                _item_mouse = 0;
+            }
+        	 
         }
     }
     
