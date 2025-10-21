@@ -11,9 +11,14 @@ roll_vel = 5;
 estado     = noone;
 estado_txt = "parado"
 
+dano_dir = 0;
+
 face   = 0;
 sprite = sprite_index;
 xscale = 1;
+
+tempo_invencivel = game_get_speed(gamespeed_fps) * 2;
+timer_invencivel = tempo_invencivel;
 
 seq_especial = noone;
 
@@ -46,7 +51,9 @@ sprites = [
             //Sprite defesa
             [spr_player_shield_right, spr_player_shield_up, spr_player_shield_right, spr_player_shield_down],
             //Sprite roll
-            [spr_player_rool_right, spr_player_rool_up, spr_player_rool_right, spr_player_rool_down]
+            [spr_player_rool_right, spr_player_rool_up, spr_player_rool_right, spr_player_rool_down],
+            //Sprite Dano
+            [spr_player_hurt_right, spr_player_hurt_up, spr_player_hurt_right, spr_player_hurt_down]
           ];
 
 sprites_index = 0;
@@ -62,6 +69,29 @@ keyboard_set_map(ord("K"), ord("X"));
 keyboard_set_map(vk_enter, vk_space);
 
 #endregion
+
+toma_dano = function (_dano = 1){
+    //Só pode tomaar dano se o timer invencivel nao acabou
+    if (timer_invencivel >= tempo_invencivel) {
+        if (estado == estado_defesa or estado == estado_rolando) return;
+            
+        //Só roda esse c[odgio se a condicaao de cima nao executar
+    	estado = estado_dano;
+        timer_invencivel = 0;
+        global.vida_player -= _dano;
+    }
+    
+}
+
+efeito_dano = function (){
+    //Se o timer aidna nao cehgou no tempo de invwencibildiade entao eu aumento o valor dele e faco ele piscar trasnaprente
+    if (timer_invencivel < tempo_invencivel) {
+    	timer_invencivel++;
+        image_alpha = abs(sin(get_timer() / 150000));
+    } else {
+    	image_alpha = 1;
+    }
+}
 
 ajusta_sprite = function (_indice_vetor){
     //Checando se a imagem que estou usando é oque eud everia estar usando
@@ -218,6 +248,7 @@ estado_ataque = function () {
         var _add    = face == 1 ? sprite_height / 2 : 0;
         
         _meu_dano = instance_create_depth(_dano_x, _dano_y - (sprite_height/2) + _add, depth, obj_dano);
+        _meu_dano.meu_pai = id;
     }
     
     
@@ -382,6 +413,22 @@ estado_dialogo = function (){
         	_obj_dialogo.dialogo                    = dialogo;                   
         }
     }
+}
+
+estado_dano = function (){
+    estado_txt = "Tomando dano";
+    ajusta_sprite(5);
+    
+    velh = lengthdir_x(1.3, dano_dir)
+    velv = lengthdir_y(1.3, dano_dir)
+    
+    //Saindo do estado depois de meio segundo
+    if (timer_invencivel > game_get_speed(gamespeed_fps)/2) {
+    	estado = estado_parado;
+        velh = 0;
+        velv = 0;
+    }
+    
 }
 
 estado = estado_parado;

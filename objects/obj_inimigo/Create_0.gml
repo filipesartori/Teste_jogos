@@ -4,7 +4,6 @@ event_inherited();
 vida_max = 2;
 vida_atual = vida_max;
 
-
 //Definindo as sprites
 sprites = [spr_cogumelo_right, spr_cogumelo_up, spr_cogumelo_right, spr_cogumelo_down];
 
@@ -158,6 +157,8 @@ controla_estado = function () {
         
         case "Ataque":
             image_blend = c_red
+        
+            aplica_dano_player();
             
             //Resetando o time de persegue
             t_persegue = tempo_persegue;

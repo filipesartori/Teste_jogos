@@ -8,6 +8,24 @@ global.inventario[# 2, 2] = global.armas[| armas.espadonha];
 global.inventario[# 0, 1] = global.armas[| armas.machonha];
 global.inventario[# 0, 0] = global.armas[| armas.tridonha];
 
+//Desenhando a vida do player
+desenha_coracao = function (_x, _y){
+    //Desenhando a quantidade de vida total sobre 2
+    var _w = sprite_get_width(spr_coracao) / 1.5;
+    for (var i = 0; i < global.max_vida_player; i += 2) {
+    	draw_sprite(spr_coracao, 0, _x + i * _w, _y);
+    }
+    
+    //Desenhnado os coracoes preenchidos
+    for (var i = 0; i < global.vida_player; i += 2) {
+        //garantindo que o img vai ficar com valor de 1 se a ultima vida tiver o valor impar
+        var _img = ((global.vida_player - i) != 1) + 1;
+        
+    	draw_sprite(spr_coracao, _img, _x + i * _w, _y);
+    }
+    
+}
+
 encontra_item = function (_x, _y){
     return global.inventario[# _x, _y];
 }

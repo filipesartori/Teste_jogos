@@ -167,3 +167,5 @@ function termina_shake(){
 global.debug = false;
 global.pause = false;
 global.inventario = ds_grid_create(4, 4);
+global.max_vida_player = 6;
+global.vida_player = global.max_vida_player;

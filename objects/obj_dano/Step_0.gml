@@ -7,12 +7,14 @@ for (var i = 0; i < _qtd; i++) {
     var _outro = _colisoes[| i];
     //Checando se o outro nao esta na lista de atacados
     if (ds_list_find_index(lista_atacados, _outro) == -1) {
-        //Adicionei na lista
-        ds_list_add(lista_atacados, _outro);
-        var _dano = global.arma_player != noone ? global.arma_player.dano : 0;
-        //aplica o dano
-        _outro.toma_dano(_dano);
-        _outro.dano_dir = point_direction(x, y, _outro.x, _outro.y - (_outro.sprite_height/2));
+        if (_outro != meu_pai) {
+        	//Adicionei na lista
+            ds_list_add(lista_atacados, _outro);
+            var _dano = global.arma_player != noone ? global.arma_player.dano : 0;
+            //aplica o dano
+            _outro.toma_dano(_dano);
+            _outro.dano_dir = point_direction(x, y, _outro.x, _outro.y - (_outro.sprite_height/2));
+        }
     }
 }
 

@@ -25,6 +25,7 @@ t_persegue     = tempo_persegue;
 dano_dir       = 0; 
 tempo_pisca    = 8;
 timer_pisca    = 0;
+meu_dano       = 1;
 #endregion
 
 #region comportamentos/metodos
@@ -69,4 +70,15 @@ toma_dano = function (_dano = 1){
         dano = _dano;
     }
     
+}
+
+aplica_dano_player = function (){
+    //Checando se estou colidindo com palyer
+    var _player = instance_place(x, y, obj_player);
+    
+    //Se eu toquei no player entao eu aplico o dano
+    if (_player) {
+    	_player.toma_dano(meu_dano);
+        _player.dano_dir = point_direction(0, 0, velh, velv);
+    }
 }

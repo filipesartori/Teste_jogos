@@ -8,7 +8,9 @@ if (global.pause) {
     }
 }
 
+desenha_coracao(20, 40);
+
 //Desenhando op nome do equipamento atual
 if (global.arma_player) {
-	draw_text(20, 40, global.arma_player.nome);
+	//draw_text(20, 40, global.arma_player.nome);
 }
