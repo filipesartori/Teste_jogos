@@ -13,6 +13,8 @@ estado_txt = "parado"
 
 dano_dir = 0;
 
+defendi = false;
+
 face   = 0;
 sprite = sprite_index;
 xscale = 1;
@@ -73,7 +75,22 @@ keyboard_set_map(vk_enter, vk_space);
 toma_dano = function (_dano = 1){
     //Só pode tomaar dano se o timer invencivel nao acabou
     if (timer_invencivel >= tempo_invencivel) {
-        if (estado == estado_defesa or estado == estado_rolando) return;
+        //Pegando a diferenca entre meu anguloe  do inimigo
+        //primeiro eu pego o meu angulo usando minha face
+        //girando oi angulo do player para facilitar
+        var _ang_dif = abs(angle_difference((face * 90 - 180), dano_dir));
+        
+        //Se a diferenca for baixa da para defender 
+        var _defesa = _ang_dif < 90 && estado == estado_defesa;
+        
+        if (_defesa) {
+        	defendi = true;
+            return;
+        }
+        
+        if (estado == estado_rolando) return;
+            	
+               
             
         //Só roda esse c[odgio se a condicaao de cima nao executar
     	estado = estado_dano;
@@ -299,6 +316,8 @@ estado_ataque_especial = function (){
 }
 
 estado_defesa = function (){
+    static _novo_velh = 0, _novo_velv = 0;
+    
     estado_txt = "defesa"
     
     //Controlando o player
@@ -307,12 +326,23 @@ estado_defesa = function (){
     ajusta_sprite(3);
     
     //Garantindo que estou parado
-    velv = 0;
-    velh = 0;
+    velv = _novo_velv;
+    velh = _novo_velh;
+    
+    _novo_velh = lerp(_novo_velh, 0, .1)
+    _novo_velv = lerp(_novo_velv, 0, .1)
+    
+    if (defendi) {
+    	_novo_velh = lengthdir_x(2, dano_dir);
+    	_novo_velv = lengthdir_y(2, dano_dir);
+        defendi = false;
+    }
     
     //Saindo do estado
     if (!shield) {
     	estado = estado_parado;
+        _novo_velh = 0;
+        _novo_velv = 0;
     }
 }
 
