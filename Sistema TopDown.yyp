@@ -105,6 +105,8 @@
     {"id":{"name":"spr_player_shield_right","path":"sprites/spr_player_shield_right/spr_player_shield_right.yy",},},
     {"id":{"name":"spr_player_shield_up","path":"sprites/spr_player_shield_up/spr_player_shield_up.yy",},},
     {"id":{"name":"spr_player","path":"sprites/spr_player/spr_player.yy",},},
+    {"id":{"name":"spr_pocao_coracao","path":"sprites/spr_pocao_coracao/spr_pocao_coracao.yy",},},
+    {"id":{"name":"spr_pocao_cura","path":"sprites/spr_pocao_cura/spr_pocao_cura.yy",},},
     {"id":{"name":"spr_projetil","path":"sprites/spr_projetil/spr_projetil.yy",},},
     {"id":{"name":"spr_retrato_NPC","path":"sprites/spr_retrato_NPC/spr_retrato_NPC.yy",},},
     {"id":{"name":"spr_retrato_player","path":"sprites/spr_retrato_player/spr_retrato_player.yy",},},

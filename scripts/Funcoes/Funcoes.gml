@@ -11,6 +11,7 @@ function cria_arma(_nome, _desc, _spr, _dano, _vel, _esp) constructor
 {
     //Criando o ID das armas
     static qtd_armas = 0;
+    static _tipo = item_tipo.armas;
     
     arma_id = qtd_armas++;
     nome    = _nome;
@@ -49,6 +50,42 @@ function cria_arma(_nome, _desc, _spr, _dano, _vel, _esp) constructor
     }
 }
 
+function cria_consumivel(_nome, _desc, _spr, _acao) constructor 
+{
+    static _tipo = item_tipo.consumiveis;
+    static _id   = 0;
+    meu_id       = _id++;
+    nome         = _nome;
+    desc         = _desc;
+    spr          = _spr;
+    acao         = _acao;
+    
+    usa_item = acao;
+    
+    static pega_item = function (){
+        var _cols = ds_grid_width(global.inventario);
+        var _lins = ds_grid_height(global.inventario);
+        //Checar se tem espaco vazio no inventario
+        for (var i = 0; i < _lins; i++) {
+        	for (var j = 0; j < _cols; j++) {
+            	//Se o slot atual ta vazio eu entro nele
+                var _atual = global.inventario[# j, i]
+                if (!_atual) {
+                	//Eu vou apra estes slot, pois ele vai estar vazio
+                    global.inventario[# j, i] = global.consumiveis[| meu_id];
+                    
+                    //Consegui me equipar eu aviso que deu certo
+                    return true;
+                }
+            }
+        }
+        
+        //Terminou o laco e nao encontrou um slot retorno falso
+        return false;
+        
+    }
+}
+
 enum armas 
 {
     espadonha,
@@ -56,9 +93,28 @@ enum armas
     tridonha
 }
 
+enum item_tipo
+{
+    armas, 
+    consumiveis
+}
+
+enum consumievis
+{
+    pocao_vermelha,
+    pocao_coracao
+}
+
 //Criando a minha lista de armas
 global.armas = ds_list_create();
 global.arma_player = noone;
+//variaveis globais
+global.debug = false;
+global.pause = false;
+global.inventario = ds_grid_create(4, 4);
+global.max_vida_player = 6;
+global.vida_player = 3;
+global.consumiveis = ds_list_create();
 
 //Criando as armas
 var _a = new cria_arma("Espadonha", "Uma espada feita de maconha", spr_espada, 3, 1, espadonha_atk);
@@ -67,6 +123,24 @@ var _c = new cria_arma("Tridonha", "Um tridente feito de maconha", spr_espada_3,
 
 //slavando minhas armas na lsita
 ds_list_add(global.armas, _a, _b, _c);
+
+function acao_pocao_vermelha(){
+    global.vida_player += 2;
+    //limitando a vida do player
+    global.vida_player = clamp(global.vida_player, 0, global.max_vida_player);
+}
+
+function acao_pocao_coracao(){
+    //Aumentando a qauntidade de coracao
+    global.max_vida_player += 2;
+}
+
+//Criando itens
+var _a = new cria_consumivel("Corote de morango", "Esse ai levanta até difunto", spr_pocao_cura, acao_pocao_vermelha);
+var _b = new cria_consumivel("Flor do jaca", "De qualidade, só misturar com um pouco de tabaco", spr_pocao_coracao, acao_pocao_coracao);
+
+//Slavando itens na lista
+ds_list_add(global.consumiveis, _a, _b);
 
 //Criando o ataque especial da espadonha
 function espadonha_atk () {
@@ -163,9 +237,5 @@ function termina_shake(){
     layer_destroy("shake");
 }
 
-//variaveis globais
-global.debug = false;
-global.pause = false;
-global.inventario = ds_grid_create(4, 4);
-global.max_vida_player = 6;
-global.vida_player = global.max_vida_player;
+
+

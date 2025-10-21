@@ -8,6 +8,9 @@ global.inventario[# 2, 2] = global.armas[| armas.espadonha];
 global.inventario[# 0, 1] = global.armas[| armas.machonha];
 global.inventario[# 0, 0] = global.armas[| armas.tridonha];
 
+global.inventario[#1, 0] = global.consumiveis[| consumievis.pocao_vermelha];
+global.inventario[#1, 1] = global.consumiveis[| consumievis.pocao_coracao];
+
 //Desenhando a vida do player
 desenha_coracao = function (_x, _y){
     //Desenhando a quantidade de vida total sobre 2
@@ -123,6 +126,12 @@ desenha_inventario = function (){
         	//Se existe um item nessa posicao
             if (_item_sel) {
             	_item_sel.usa_item();
+                
+                //Checando se esse item é consumivel
+                if (_item_sel._tipo == item_tipo.consumiveis) {
+                	//apagando o item
+                    global.inventario[# _sel_x, _sel_y] = 0;
+                }
             }
         }
         if (mouse_check_button_released(mb_left)) {
