@@ -19,6 +19,8 @@ face   = 0;
 sprite = sprite_index;
 xscale = 1;
 
+
+
 tempo_invencivel = game_get_speed(gamespeed_fps) * 2;
 timer_invencivel = tempo_invencivel;
 
@@ -41,6 +43,9 @@ image_spd = 8 / game_get_speed(gamespeed_fps);
 
 //Quantidade de imagens na minha sprite
 image_num = 1;
+
+//Criando a caemra junto ao player
+var _cam = instance_create_layer(x, y, layer, obj_camera);
 
 //Array 2D para controlar as sprites
 sprites = [
