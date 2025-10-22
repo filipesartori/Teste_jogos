@@ -15,9 +15,9 @@ if (keyboard_check_released(vk_escape)) {
 
 //testando meu save
 if (keyboard_check_released(vk_delete)) {
-	salva_jogo();
+	salva_jogo(global.save);
 }
 
 if (keyboard_check_released(vk_pause)) {
-	carrega_jogo();
+	carrega_jogo(global.save);
 }

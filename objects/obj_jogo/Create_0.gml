@@ -4,7 +4,10 @@ ds_grid_clear(global.inventario, 0);
 display_set_gui_size(512, 288);
 
 //Sistema de save usando json
-salva_jogo = function (){
+salva_jogo = function (_save){
+    //Alterando o nome do arquivo 
+    var _arquivo = "Meu save"  + string(_save+1) + ".json"
+    
     //Convertendo o inventario em um array
     var _inv;
     
@@ -37,7 +40,7 @@ salva_jogo = function (){
     var _string = json_stringify(_dados);
     
     //Abrindo meu arquivo
-    var _file = file_text_open_write("Meu save.json");
+    var _file = file_text_open_write(_arquivo);
     
     //escrevendo as informacoes
     file_text_write_string(_file, _string);
@@ -47,9 +50,11 @@ salva_jogo = function (){
 }
 
 //Carregando o jogo do json
-carrega_jogo = function (){
+carrega_jogo = function (_save){
+    var _arquivo = "Meu save"  + string(_save+1) + ".json"
+    
     //Abrindo o arquivo
-    var _file = file_text_open_read("Meu save.json");
+    var _file = file_text_open_read(_arquivo);
     
     //Pegando os dados do arquivo
     var _string = file_text_read_string(_file);

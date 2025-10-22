@@ -105,6 +105,13 @@ enum consumievis
     pocao_coracao
 }
 
+enum saves
+{
+    save_01,
+    save_02,
+    save_03
+}
+
 //Criando a minha lista de armas
 global.armas = ds_list_create();
 global.arma_player = noone;
@@ -115,6 +122,7 @@ global.inventario = ds_grid_create(4, 4);
 global.max_vida_player = 6;
 global.vida_player = 3;
 global.consumiveis = ds_list_create();
+global.save = saves.save_02;
 
 //Criando as armas
 var _a = new cria_arma("Espadonha", "Uma espada feita de maconha", spr_espada, 3, 1, espadonha_atk);
