@@ -3,6 +3,8 @@ event_inherited();
 
 #region Variaveis
 
+transicao = false;
+
 max_vel  = 3;
 meu_acel = .1
 acel     = meu_acel;

@@ -1,5 +1,5 @@
 //Se o jogo está pausado, eu nao rodo nada daqui
-if (global.pause){
+if (global.pause or transicao){
     velh = 0;
     velv = 0;
     exit;
