@@ -11,7 +11,7 @@ function cria_arma(_nome, _desc, _spr, _dano, _vel, _esp) constructor
 {
     //Criando o ID das armas
     static qtd_armas = 0;
-    static _tipo = item_tipo.armas;
+    _tipo    = item_tipo.armas;
     
     arma_id = qtd_armas++;
     nome    = _nome;
@@ -52,7 +52,7 @@ function cria_arma(_nome, _desc, _spr, _dano, _vel, _esp) constructor
 
 function cria_consumivel(_nome, _desc, _spr, _acao) constructor 
 {
-    static _tipo = item_tipo.consumiveis;
+    _tipo         = item_tipo.consumiveis;
     static _id   = 0;
     meu_id       = _id++;
     nome         = _nome;

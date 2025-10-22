@@ -4,7 +4,7 @@ if (global.pause or transicao){
     velv = 0;
     exit;
 }
-estado();
+
 
 if (keyboard_check_released(vk_tab)) {
 	global.debug = !global.debug;
@@ -15,6 +15,7 @@ if (keyboard_check_released(vk_shift)) {
 }
 
 efeito_dano();
+estado();
 
 
 

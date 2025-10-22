@@ -3,6 +3,102 @@ ds_grid_clear(global.inventario, 0);
 //Definindo o tamanho do GUI
 display_set_gui_size(512, 288);
 
+//Sistema de save usando json
+salva_jogo = function (){
+    //Convertendo o inventario em um array
+    var _inv;
+    
+    for (var i = 0; i < ds_grid_height(global.inventario); i++) {
+    	for (var j = 0; j < ds_grid_width(global.inventario); j++) {
+            //Salvando a info do inventario no meu vetro2d
+        	_inv[j][i] = global.inventario[# j, i];
+        }
+    }
+    
+    
+    //Criando a struct com meus dados
+    var _dados = {
+        //Criando uma struct com os dados do player
+        player:
+        {
+            meu_x    : obj_player.x,
+            meu_y    : obj_player.y,
+            rm       : room,
+            vida     : global.vida_player,
+            max_vida : global.max_vida_player,
+            arma     : global.arma_player
+            
+        },
+        
+        inventario: _inv
+       
+    }
+    //Converter em json
+    var _string = json_stringify(_dados);
+    
+    //Abrindo meu arquivo
+    var _file = file_text_open_write("Meu save.json");
+    
+    //escrevendo as informacoes
+    file_text_write_string(_file, _string);
+    
+    //fechando meu arquivo
+    file_text_close(_file);
+}
+
+//Carregando o jogo do json
+carrega_jogo = function (){
+    //Abrindo o arquivo
+    var _file = file_text_open_read("Meu save.json");
+    
+    //Pegando os dados do arquivo
+    var _string = file_text_read_string(_file);
+    
+    //fechando meu arquivo
+    file_text_close(_file);
+    
+    //Convertendo a string em struct
+    var _dados = json_parse(_string);
+    
+    //Passando as informacoes para o player
+    obj_player.x           = _dados.player.meu_x;
+    obj_player.y           = _dados.player.meu_y;
+    room                   = _dados.player.rm;
+    global.max_vida_player = _dados.player.max_vida;
+    global.vida_player     = _dados.player.vida;
+    global.arma_player     = _dados.player.arma;
+    
+    //Limpando meu inventario
+    ds_grid_clear(global.inventario, 0);
+    
+    //Passando os dados do vetor do inventario apra ds_grid
+    for (var i = 0; i < ds_grid_height(global.inventario); i++) {
+    	for (var j = 0; j < ds_grid_width(global.inventario); j++) {
+        	global.inventario[# j, i] = _dados.inventario[j][i];
+            
+            //ele nao comsegue salvar as estruturas com as funcoes
+            //porem eu consigo saber qual item eu tenho lá
+            //entao eu vou amndar ele recriar no inventario o item que deveria estar lá
+            //Checando qual é o item, tipo e id do item
+            var _item_atual = _dados.inventario[j][i];
+            if (_item_atual) {
+            	//Checar qual tipo de item
+                switch (_item_atual._tipo) {
+                	case item_tipo.armas:
+                        //Colocando a arma correta no slot
+                        global.inventario[# j, i] = global.armas[| _item_atual.arma_id];
+                    break;
+                    
+                    case item_tipo.consumiveis:
+                        global.inventario[# j, i] = global.consumiveis[| _item_atual.meu_id];
+                    break;
+                }
+                	
+            }
+        }
+    }
+}
+
 //me dando uma arma
 global.inventario[# 2, 2] = global.armas[| armas.espadonha];
 global.inventario[# 0, 1] = global.armas[| armas.machonha];
