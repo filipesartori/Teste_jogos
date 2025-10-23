@@ -1,0 +1,1 @@
+Jogo no estilo top down, feito no gamemaker 2, a fim de estudos de variados sistemas como de movimentação, save, colisão, inventario entre outros, ele é jogavel, porem nao tem nada alem do mapa inicial e alguns mobs e armas
