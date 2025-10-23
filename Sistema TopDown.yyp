@@ -49,7 +49,9 @@
   "resources":[
     {"id":{"name":"fnt_dialog_jersey","path":"fonts/fnt_dialog_jersey/fnt_dialog_jersey.yy",},},
     {"id":{"name":"fnt_dialog_vt","path":"fonts/fnt_dialog_vt/fnt_dialog_vt.yy",},},
+    {"id":{"name":"fnt_Roboto_inicio","path":"fonts/fnt_Roboto_inicio/fnt_Roboto_inicio.yy",},},
     {"id":{"name":"fnt_Roboto","path":"fonts/fnt_Roboto/fnt_Roboto.yy",},},
+    {"id":{"name":"fnt_titulo","path":"fonts/fnt_titulo/fnt_titulo.yy",},},
     {"id":{"name":"Colisao Pixel Perfect","path":"notes/Colisao Pixel Perfect/Colisao Pixel Perfect.yy",},},
     {"id":{"name":"Colisao Sub Pixel","path":"notes/Colisao Sub Pixel/Colisao Sub Pixel.yy",},},
     {"id":{"name":"obj_camera","path":"objects/obj_camera/obj_camera.yy",},},
@@ -123,6 +125,7 @@
     {"id":{"name":"spr_sombra","path":"sprites/spr_sombra/spr_sombra.yy",},},
     {"id":{"name":"spr_tela_2","path":"sprites/spr_tela_2/spr_tela_2.yy",},},
     {"id":{"name":"spr_tela","path":"sprites/spr_tela/spr_tela.yy",},},
+    {"id":{"name":"spr_tela3","path":"sprites/spr_tela3/spr_tela3.yy",},},
     {"id":{"name":"spr_teste","path":"sprites/spr_teste/spr_teste.yy",},},
     {"id":{"name":"spr_tiles","path":"sprites/spr_tiles/spr_tiles.yy",},},
     {"id":{"name":"spr_transicao","path":"sprites/spr_transicao/spr_transicao.yy",},},
