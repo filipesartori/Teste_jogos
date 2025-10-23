@@ -28,7 +28,7 @@ var _chao = instance_place(x, y + velv, obj_chao);
 if(_chao) { // se o valor do chao for valido
     //Checando se estou descendo ou subindo
     if (velv > 0) { //descendo
-    	y = _chao.bbox_top;
+    	y = _chao.bbox_top + (y - bbox_bottom);
     } else if (velv < 0) {
     	y = _chao.bbox_bottom + (y - bbox_top);
     }
