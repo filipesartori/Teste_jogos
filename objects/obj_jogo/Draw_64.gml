@@ -8,7 +8,10 @@ if (global.pause) {
     }
 }
 
-desenha_coracao(20, 40);
+if (room != rm_inicio) {
+	desenha_coracao(20, 40);
+}
+
 
 //Desenhando op nome do equipamento atual
 if (global.arma_player) {
