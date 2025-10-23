@@ -21,3 +21,8 @@ if (keyboard_check_released(vk_delete)) {
 if (keyboard_check_released(vk_pause)) {
 	carrega_jogo(global.save);
 }
+
+
+if (!iniciei) {
+	inicia_jogo(dados);
+}

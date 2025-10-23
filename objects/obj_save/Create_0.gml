@@ -6,6 +6,8 @@ blue = 255;
 red = 255;
 green = 255;
 
+global.iniciou = false;
+
 image_blend = make_color_rgb(red, green, blue);
 
 meu_save = instance_number(obj_save);
@@ -26,27 +28,21 @@ meu_efeito = function (){
         green = lerp(green, 200, .2);
         
         //Checando se apessoa clicou em mim
-        if (_mouse_click) {
-        	var _lay = layer_get_id("inicio");
-            var _seq = layer_get_all_elements(_lay);
-            var _sq;
+        if (_mouse_click && global.iniciou == false) {
             
-            //Encontrando dentro do arrwy op elemento que é a sequencia
-            //rodando pelo vetor
-            for (var i = 0; i < array_length(_seq); i++) {
-            	//Checanso se o elemento atual é uams equencia
-                var _atual = _seq[i];
-
-                if (layer_get_element_type(_atual) == layerelementtype_sequence) {
-                    //Se o elemento atual for minah sequencia eu salvoe le na minah avriavel sq e temrino oi loop
-                	_sq = _atual;
-                    
-                    break;
-                }
-            }
+            global.iniciou = true;
             
+            //Definindo o save do jogo
+            global.save = meu_save - 1;
+            
+        	var _sq = pega_sequencia("inicio")
             
             layer_sequence_play(_sq);
+            
+            //Passando meus dados pro objeto jogo
+            if (instance_exists(obj_jogo)) {
+            	obj_jogo.dados = meus_dados;
+            }
         }
     }else {
     	y = lerp(y, meu_y_incial, .2);

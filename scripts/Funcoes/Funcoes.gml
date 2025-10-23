@@ -7,6 +7,25 @@ function ajusta_depth(){
     depth = -y;
 }
 
+function pega_sequencia(_nome){
+    var _lay = layer_get_id(_nome);
+    var _seq = layer_get_all_elements(_lay);
+            
+    //Encontrando dentro do arrwy op elemento que é a sequencia
+    //rodando pelo vetor
+    for (var i = 0; i < array_length(_seq); i++) {
+        //Checanso se o elemento atual é uams equencia
+        var _atual = _seq[i];
+
+        if (layer_get_element_type(_atual) == layerelementtype_sequence) {
+            //Se o elemento atual for minah sequencia eu salvoe le na minah avriavel sq e temrino oi loop
+            return _atual;
+                    
+        }
+    }
+    return false;
+}
+
 function cria_arma(_nome, _desc, _spr, _dano, _vel, _esp) constructor 
 {
     //Criando o ID das armas
@@ -120,9 +139,10 @@ global.debug = false;
 global.pause = false;
 global.inventario = ds_grid_create(4, 4);
 global.max_vida_player = 6;
-global.vida_player = 3;
+global.vida_player = 6;
 global.consumiveis = ds_list_create();
 global.save = saves.save_02;
+global.iniciou = false;
 
 //Criando as armas
 var _a = new cria_arma("Espadonha", "Uma espada feita de maconha", spr_espada, 3, 1, espadonha_atk);

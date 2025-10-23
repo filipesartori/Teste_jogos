@@ -8,7 +8,12 @@ alarm[0] = game_get_speed(gamespeed_fps)/2;
 
 cria_sequencia = function (_sq){
     lay = layer_create(depth, "transicao");
-    layer_sequence_create(lay, obj_player.x, obj_player.y, _sq);
+    if (player) {
+    	layer_sequence_create(lay, player.x, player.y, _sq);
+    }else {
+    	layer_sequence_create(lay, x, y, _sq);
+    }
+    
 }
 
 cria_sequencia(sq_transicao);

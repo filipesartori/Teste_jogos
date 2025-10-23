@@ -8,7 +8,7 @@ if (global.pause) {
     }
 }
 
-if (room != rm_inicio) {
+if (room != rm_inicio && !instance_exists(obj_transicao)) {
 	desenha_coracao(20, 40);
 }
 

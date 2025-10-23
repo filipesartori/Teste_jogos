@@ -3,6 +3,74 @@ ds_grid_clear(global.inventario, 0);
 //Definindo o tamanho do GUI
 display_set_gui_size(512, 288);
 
+dados = noone;
+
+iniciei = false;
+
+inicia_jogo = function (_dados){
+    //Se eu estou na room incial vouv er se a seuqencia foi inciada
+    var _sq = pega_sequencia("inicio")
+    
+    //Checanso se a seuqenxcia terminou
+    if (layer_sequence_is_finished(_sq)) {
+        iniciei = true;
+        
+        if (room == rm_inicio) {
+        	if (!_dados) {
+    	        room_goto(room_modelo);
+                //Criando o player
+                var _player = instance_create_layer(416, 384, "Player", obj_player);
+                var _transicao = instance_create_depth(416, 384, -10000, obj_transicao);
+            }else {
+            	//Se eu tenho dados ir apra a room correta e arrumar tudo
+                room_goto(_dados.player.rm);
+                var _player = instance_create_layer(0, 0, "Player", obj_player);
+                with(_player){
+                    x = _dados.player.meu_x;
+                    y = _dados.player.meu_y;
+                }
+                
+                global.max_vida_player = _dados.player.max_vida;
+                global.vida_player     = _dados.player.vida;
+                global.arma_player     = _dados.player.arma;
+                
+                //Limpando meu inventario
+                ds_grid_clear(global.inventario, 0);
+                
+                //Passando os dados do vetor do inventario apra ds_grid
+                for (var i = 0; i < ds_grid_height(global.inventario); i++) {
+                	for (var j = 0; j < ds_grid_width(global.inventario); j++) {
+                    	global.inventario[# j, i] = _dados.inventario[j][i];
+                        
+                        //ele nao comsegue salvar as estruturas com as funcoes
+                        //porem eu consigo saber qual item eu tenho lá
+                        //entao eu vou amndar ele recriar no inventario o item que deveria estar lá
+                        //Checando qual é o item, tipo e id do item
+                        var _item_atual = _dados.inventario[j][i];
+                        if (_item_atual) {
+                        	//Checar qual tipo de item
+                            switch (_item_atual._tipo) {
+                            	case item_tipo.armas:
+                                    //Colocando a arma correta no slot
+                                    global.inventario[# j, i] = global.armas[| _item_atual.arma_id];
+                                break;
+                                
+                                case item_tipo.consumiveis:
+                                    global.inventario[# j, i] = global.consumiveis[| _item_atual.meu_id];
+                                break;
+                            }
+                            	
+                        }
+                    }
+                }
+                
+                var _transicao = instance_create_depth(_dados.player.meu_x, _dados.player.meu_y, -10000, obj_transicao);
+            }
+        }
+    	
+    }
+}
+
 //Sistema de save usando json
 salva_jogo = function (_save){
     //Alterando o nome do arquivo 
@@ -103,14 +171,6 @@ carrega_jogo = function (_save){
         }
     }
 }
-
-//me dando uma arma
-global.inventario[# 2, 2] = global.armas[| armas.espadonha];
-global.inventario[# 0, 1] = global.armas[| armas.machonha];
-global.inventario[# 0, 0] = global.armas[| armas.tridonha];
-
-global.inventario[#1, 0] = global.consumiveis[| consumievis.pocao_vermelha];
-global.inventario[#1, 1] = global.consumiveis[| consumievis.pocao_coracao];
 
 //Desenhando a vida do player
 desenha_coracao = function (_x, _y){
